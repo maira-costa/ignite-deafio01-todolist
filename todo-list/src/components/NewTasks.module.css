@@ -1,0 +1,30 @@
+.newTasks {
+    display: flex;
+    justify-content: center;
+    height: 3.375rem;
+    margin-top: -1.6875rem;
+    gap: .5rem;
+}
+
+.newTasks > input {
+    width: 100%;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--gray-700);
+    background: var(--gray-500);
+    color: var(--gray-100);
+}
+
+.newTasks button {
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    background: var(--blue-500);
+    color: var(--gray-100);
+    font-size: .875rem;
+    border: 0;
+    font-weight: bold;
+}
