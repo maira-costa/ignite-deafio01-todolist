@@ -1,4 +1,4 @@
-.task {
+.wrapper {
     display: flex;
     align-items: flex-start;
     background: var(--gray-500);
@@ -9,19 +9,94 @@
     gap: .75rem;
 }
 
-.task > input {
-    height: 1.5rem;
-    width: 1.5rem;
-    background: transparent;
+.wrapper:focus-within {
+    box-shadow: 0 0 0 1px var(--purple-500);
 }
 
-.task > input:checked {
-    
+.task {
+    display: flex;
+    width: 100%;
+    position: relative;
 }
 
-.task > label {
+.task > .content {
     font-weight: 400;
     font-size: .875rem;
     line-height: 1.2rem;
     color: var(--gray-100);
+    transition: color 1s;
 }
+
+.task > input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    aspect-ratio: 1;
+    height: 17.45px;
+    background: transparent;
+    cursor: pointer;
+    border: 2px solid var(--blue-300);
+    border-radius: 100%;
+    margin: 3px .75rem 0;
+    position: relative;
+}
+
+.task > input:checked ~.checkmark {
+    background: var(--purple-500);
+    border: 0;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 29%;
+    top: 29%;
+    width: 7.31px;
+    height: 4.69px;
+    border: solid var(--gray-100);
+    border-width: 0 0 1px 1px;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.task input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.task > input:checked ~ .content {
+    color: var(--gray-300);
+    text-decoration: line-through;
+}
+
+.wrapper > button {
+    background-color: transparent;
+    border: 0;
+    box-sizing: initial;
+    color: var(--gray-300);
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    line-height: 0;
+}
+
+button > svg {
+    color: var(--gray-300);
+}
+
+.wrapper > button:hover {
+    color: var(--red-500);
+    background-color: var(--gray-400);
+}
+
+.wrapper > button:hover svg {
+    color: var(--red-500);
+}
+
+

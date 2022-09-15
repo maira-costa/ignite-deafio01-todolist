@@ -15,7 +15,7 @@
     color: var(--gray-100);
 }
 
-.newTasks button {
+.newTasks button[type=submmit] {
     border-radius: 8px;
     padding: 1rem;
     display: flex;
@@ -27,4 +27,15 @@
     font-size: .875rem;
     border: 0;
     font-weight: bold;
+    cursor: pointer;
+
+    transition: background .3s;
+}
+
+.newTasks button[type=submmit] > svg {
+    color: var(--gray-100);
+}
+
+.newTasks button[type=submmit]:hover {
+    background: var(--blue-300);
 }

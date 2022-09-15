@@ -17,6 +17,11 @@
     --red-500: #E25858;
 }
 
+:focus {
+    outline: transparent;
+    box-shadow: 0 0 0 1px var(--purple-500);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
