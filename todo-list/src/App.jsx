@@ -1,4 +1,3 @@
-import { NewTasks } from './components/NewTasks'
 import { Header } from './components/Header'
 import { Tasks } from './components/Tasks'
 import './global.css'
@@ -10,7 +9,6 @@ function App() {
     <div>
       <Header />
       <main className={styles.main}>
-        <NewTasks />
         <Tasks />
       </main>
     </div>

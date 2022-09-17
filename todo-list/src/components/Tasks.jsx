@@ -1,20 +1,70 @@
+import { useState } from 'react'
 import emptyIcon from '../assets/empty-icon.svg'
+import { AddNewTask } from './AddNewTask'
 import { Task } from './Task'
 import styles from './Tasks.module.css'
 
 export function Tasks() {
+    const [tasks, setTasks] = useState([])
+
+    const [newTaskText, setNewTaskText] = useState('')
+   
+    function handleCreateNewTask() {
+        event.preventDefault()
+        setTasks([...tasks, newTaskText])
+        setNewTaskText('')
+    }
+
+    function handleNewTaskChange() {
+        event.target.setCustomValidity('')
+        setNewTaskText(event.target.value)
+    }
+
+    function deleteTask(taskToDelete) {
+        const tasksWithoutDeletedOne = tasks.filter(task => {
+            return task != taskToDelete
+        })
+
+        setTasks(tasksWithoutDeletedOne)
+    }
+
+    const [checkedState, setCheckedState] = useState(
+        new Array(tasks.length).fill(false)
+    )
+
+    const [completedTasks, setCompletedTasks] = useState([])
+
+    function checkTask(position) {
+        console.log(checkedState)
+        const updatedCheckedState = checkedState.map((item, index) =>
+            index === position ? !item : item
+        )
+        setCheckedState(updatedCheckedState)
+        
+        const checkedTasks = updatedCheckedState.filter(item => {
+            return item ===true
+        })
+
+        setCompletedTasks(checkedTasks)
+    }
+
     return (
         <div>
-            <header className={styles.info}>
+            <AddNewTask 
+                newTaskText={newTaskText} 
+                handleCreateNewTask={handleCreateNewTask}
+                handleNewTaskChange={handleNewTaskChange} 
+            />
+            <div className={styles.info}>
                 <div className={styles.status}>
                     <strong>Tarefas criadas</strong>
-                    <span>0</span>
+                    <span>{tasks.length}</span>
                 </div>
                 <div className={styles.status}>
                     <strong>Concluídas</strong>
-                    <span>2 de 5</span>
+                    <span>{completedTasks.length} de {tasks.length}</span>
                 </div>
-            </header>
+            </div>
             <div className={styles.noTasks}>
                 <img src={emptyIcon} alt="" />
                 <p>
@@ -23,11 +73,17 @@ export function Tasks() {
                 </p>
             </div>
             <div className={styles.hasTasks}>
-                <Task content='Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.'/>
-                <Task content='Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.'/>
-                <Task content='Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.'/>
+                {tasks.map((task, index) => {
+                    return <Task
+                                key={task}
+                                index={index}
+                                content={task}
+                                checked={checkedState}
+                                onCheckTask={checkTask}
+                                onDeleteTask={deleteTask}
+                           />            
+                })}
             </div>
-            
         </div>
     )
 }
