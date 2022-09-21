@@ -1,23 +1,13 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { AddNewTask } from './AddNewTask'
-import { Task } from './Task'
+import {TaskStack} from './TaskStack'
 import styles from './Tasks.module.css'
 
 
 export function Tasks() {
-    const [tasks, setTasks] = useState([
-        // {
-        //     id: uuidv4(),
-        //     text: 'Comprar maçã',
-        //     isComplete: false
-        // },
-        // {
-        //     id: uuidv4(),
-        //     text: 'Comprar laranja',
-        //     isComplete: false
-        // }
-    ])
+    const [tasks, setTasks] = useState([])
+
     const [newTask, setNewTask] = useState({})
 
     const [newTaskText, setNewTaskText] = useState('')
@@ -26,9 +16,9 @@ export function Tasks() {
 
     function handleCreateNewTask() {
         event.preventDefault()
-    
+        setNewTask({...newTask, text: newTaskText})
+        console.log(newTask)
         setTasks([newTask, ...tasks])
-
         setNewTaskText('')
     }
 
@@ -95,19 +85,12 @@ export function Tasks() {
                 </div>
             </div>
             <ul className={styles.tasksWrapper}>
-                {tasks.map(task => {
-                        return (
-                            <Task
-                                key={task.id}
-                                id={task.id}
-                                onCompleteTask={task.isComplete}
-                                content={task.text}
-                                onCheckTask={checkTask}
-                                onDeleteTask={deleteTask}
-                                hasTasks={hasTasks}
-                            />                           
-                        )
-                })}
+                <TaskStack 
+                    tasksList={tasks} 
+                    hasTasks={hasTasks} 
+                    checkTask={checkTask}
+                    deleteTask={deleteTask}
+                />
             </ul>
         </div>
     )
