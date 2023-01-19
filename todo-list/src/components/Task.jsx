@@ -16,7 +16,7 @@ export function Task({ id, onCompleteTask, content, onCheckTask, onDeleteTask })
             <label className={styles.task}>
                 <input type="checkbox" checked={onCompleteTask} onChange={handleCheckTask} />
                 <span className={styles.checkmark}></span>
-                <span className={styles.content}>{content}</span>
+                <p className={styles.content}>{content}</p>
             </label>
             <button title='Deletar tarefa' onClick={handleDeleteTask}>
                 <Trash size={20}/>

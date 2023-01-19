@@ -3,34 +3,39 @@ import { v4 as uuidv4 } from 'uuid'
 import { AddNewTask } from './AddNewTask'
 import {TaskStack} from './TaskStack'
 import styles from './Tasks.module.css'
+import { useEffect } from 'react'
 
 
 export function Tasks() {
     const [tasks, setTasks] = useState([])
 
-    const [newTask, setNewTask] = useState({})
-
     const [newTaskText, setNewTaskText] = useState('')
+
+    const [newTask, setNewTask] = useState({})
 
     const [completedTasks, setCompletedTasks] = useState([])
 
-    function handleCreateNewTask() {
+    function handleCreateNewTask(event) {
         event.preventDefault()
-        setNewTask({...newTask, text: newTaskText})
-        console.log(newTask)
+        console.log("CreateNewTask", newTask)
         setTasks([newTask, ...tasks])
         setNewTaskText('')
     }
 
-    function handleNewTaskChange() {
-        event.target.setCustomValidity('')
+    function handleNewTaskChange(event) {
+        // event.target.setCustomValidity('')
         setNewTaskText(event.target.value)
-        setNewTask({
-            id: uuidv4(),
-            text: newTaskText,
-            isComplete: false
-        })
     }
+
+    useEffect(
+        () => {
+            setNewTask({
+                id: uuidv4(),
+                text: newTaskText,
+                isComplete: false
+            })
+        }, [newTaskText]
+    )
 
     function checkTask(checkedTaskId) {
         const updatedCheckedState = tasks.map(task => {
