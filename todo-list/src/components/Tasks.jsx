@@ -17,7 +17,6 @@ export function Tasks() {
 
     function handleCreateNewTask(event) {
         event.preventDefault()
-        console.log("CreateNewTask", newTask)
         setTasks([newTask, ...tasks])
         setNewTaskText('')
     }
@@ -50,6 +49,14 @@ export function Tasks() {
         countCompletedTasks(updatedCheckedState)
 
     }
+    
+    function countCompletedTasks(updatedTask) {
+        const checkedTasks = updatedTask.filter(task => {
+            return task.isComplete === true
+        })
+       
+        setCompletedTasks(checkedTasks)
+    }
 
     function deleteTask(taskToDelete) {
         const tasksWithoutDeletedOne = tasks.filter(task => {
@@ -60,14 +67,6 @@ export function Tasks() {
 
         countCompletedTasks(tasksWithoutDeletedOne)
         
-    }
-    
-    function countCompletedTasks(updatedTask) {
-        const checkedTasks = updatedTask.filter(task => {
-            return task.isComplete === true
-        })
-       
-        setCompletedTasks(checkedTasks)
     }
 
     const hasTasks = tasks.length > 0
